@@ -25,8 +25,6 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 - Congestion fee impact on revenue  
 - Borough-wise revenue and trip count breakdown  
 
-📷 *Screenshots of the dashboard are attached in the repo.*  
-
 ---
 
 ## 📂 Project Structure
@@ -43,6 +41,7 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 ---
 
 ## 🚀 Key Insights
+
 - **Peak demand:** Evening hours (4–7 PM).  
 - **Hotspots:** East Harlem dominates pickups and dropoffs.  
 - **Congestion fee:** Despite fewer trips, contributes ~40% of revenue.  
