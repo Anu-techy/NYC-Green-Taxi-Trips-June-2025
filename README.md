@@ -1,8 +1,5 @@
 ## 🛠️ 1. Data Preprocessing & EDA in MySQL
 
-The SQL scripts in [`queries/`](queries/) cover both **data cleaning** and **EDA/insights**.  
-
-### Contents:
 1. **Peak Pickup Hours** – busiest hours and corresponding revenue.  
 2. **Top Pickup & Dropoff Hotspots** – high-demand zones.  
 3. **Impact of Congestion Fee** – revenue comparison between fee and non-fee trips.  
