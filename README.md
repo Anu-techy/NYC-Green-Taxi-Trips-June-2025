@@ -36,17 +36,21 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 
 ---
 
+## 📂 Project Structure (give the attachments details in a table)
+---
+
 ## 📂 Project Structure
-nyc-green-taxi-analysis/
-┣ queries/
-┃ ┣ Cleaning_Queries.sql
-┃ ┣ nyc_green_taxi_analysis.sql
-┃ ┗ stored_procedures.sql
-┣ dashboards/
-┃ ┗ powerbi_dashboard.pbix
-┣ results/
-┃ ┗ results.doc
-┣ README.md
+
+| Folder/File                | Description |
+|-----------------------------|-------------|
+| `queries/Cleaning_Queries.sql`       | SQL scripts for preprocessing and handling nulls |
+| `queries/nyc_green_taxi_analysis.sql` | SQL queries for EDA and business insights |
+| `queries/stored_procedures.sql`      | Stored procedures (null counts, borough details) |
+| `dashboards/powerbi_dashboard.pbix`  | Power BI dashboard file with interactive visuals |
+| `results/results.doc`                 | Query outputs and summary of insights |
+| `README.md`                           | Project documentation |
+
+---
 
 
 
@@ -61,9 +65,5 @@ nyc-green-taxi-analysis/
 
 ## 👩‍💻 Author
 Analysis & Dashboard by *Anusha*  
-give the attachments details in a table
-
----
 
 
-3. insights of the dashboard attached
