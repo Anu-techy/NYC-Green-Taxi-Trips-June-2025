@@ -13,8 +13,6 @@
 - `nyc_green_taxi_analysis.sql` → Insights and exploratory queries  
 - `stored_procedures.sql` → Null counts, borough details  
 
-📝 Query results are compiled in [`results.doc`](results.doc).  
-
 ---
 
 ## 📈 2. Power BI Dashboard
