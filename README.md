@@ -38,7 +38,7 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 
 ## 📂 Project Structure
 
-| Folder/File                | Description |
+|         File                | Description |
 |-----------------------------|-------------|
 | `queries/Cleaning_Queries.sql`       | SQL scripts for preprocessing and handling nulls |
 | `queries/nyc_green_taxi_analysis.sql` | SQL queries for EDA and business insights |
