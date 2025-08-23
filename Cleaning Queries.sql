@@ -188,8 +188,17 @@ ADD COLUMN pickup_day DATE;
 UPDATE green_trips 
 SET pickup_day = DATE(pickup_datetime);
 
--------------------------------
-DROPPED passenger_count, payment_type, congestion_surcharge, cbd_congestion_fee;
+------------------------------------------------------------------
+
+ALTER TABLE green_trips 
+ADD COLUMN day_type ENUM('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
+
+UPDATE green_trips 
+SET day_type = DATE_FORMAT(pickup_datetime, '%a');
+
+-----------------------------------------------------------------------
+
+-- DROPPED passenger_count, payment_type, congestion_surcharge, cbd_congestion_fee;
 
 /********************************************
 4. FINAL SHAPE
