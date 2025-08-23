@@ -213,8 +213,9 @@ WHERE (fare_amount / NULLIF(trip_distance,0)) > 20
 OR (fare_amount / NULLIF(trip_duration_min,0)) > 10; 
 
 -- DROPPED passenger_count, payment_type, congestion_surcharge, cbd_congestion_fee;
+
 /********************************************
-4. FINAL SHAPE
+8. FINAL SHAPE
 ********************************************/
 44131 rows and  15 columns
 
