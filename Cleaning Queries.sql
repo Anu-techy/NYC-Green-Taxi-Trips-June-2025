@@ -101,7 +101,7 @@ DELETE FROM green_trips WHERE DOLocationID NOT IN
 DELETE FROM green_trips WHERE tip_amount > fare_amount;
 
 /********************************************
-4. HANDLING OUTLIERS (Manual Thresholds)
+5. HANDLING OUTLIERS (Manual Thresholds)
 ********************************************/
 
 SELECT min(trip_distance), max(trip_distance),
@@ -123,7 +123,7 @@ DELETE from green_trips where trip_distance > 50;
 Delete from green_trips where trip_distance < 0.3;
 
 /********************************************
-4. DERIVED COLUMNS 
+6. DERIVED COLUMNS 
 ********************************************/
 -- Added  congestion_fee
 ALTER TABLE green_trips
@@ -196,10 +196,23 @@ ADD COLUMN day_type ENUM('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 UPDATE green_trips 
 SET day_type = DATE_FORMAT(pickup_datetime, '%a');
 
------------------------------------------------------------------------
+/********************************************
+7. Anomalies 
+********************************************/
+SELECT fare_amount, trip_distance, trip_duration_min,
+       ROUND(fare_amount / NULLIF(trip_distance,0),2) AS fare_per_mile,
+       ROUND(fare_amount / NULLIF(trip_duration_min,0),2) AS fare_per_min
+FROM green_trips
+WHERE fare_amount > 100 AND trip_distance <= 20
+ORDER BY fare_amount DESC
+LIMIT 20;
+
+-- Deleted trips where fares are unreasonable relative to either distance or duration.
+DELETE FROM green_trips 
+WHERE (fare_amount / NULLIF(trip_distance,0)) > 20 
+OR (fare_amount / NULLIF(trip_duration_min,0)) > 10; 
 
 -- DROPPED passenger_count, payment_type, congestion_surcharge, cbd_congestion_fee;
-
 /********************************************
 4. FINAL SHAPE
 ********************************************/
