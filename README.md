@@ -1,25 +1,8 @@
-# NYC Green Taxi Trips Analysis 🚖 (June 2025)
-
-This project explores **New York City Green Taxi trip data** to uncover patterns, business insights, and opportunities for operational improvements.  
-
-The workflow includes:  
-1. **Data Preprocessing in MySQL** – cleaning, feature engineering, and exploratory analysis using SQL.  
-2. **Interactive Power BI Dashboard** – visualization of trip patterns, revenues, and hotspots.  
-
----
-
-## 📊 Dataset
-- **Source:** [NYC Taxi & Limousine Commission (TLC) Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)  
-- **Dictionary:** [Data Dictionary (Green Taxi)](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf)  
-- Covers trip details like pickup/dropoff locations, timestamps, fares, distance, and congestion fees.
-
----
-
 ## 🛠️ 1. Data Preprocessing & EDA in MySQL
-Cleaning queries, EDA insights, and stored procedures are provided in  
-[`queries/nyc_green_taxi_analysis.sql`](queries/nyc_green_taxi_analysis.sql).  
 
-The SQL script is organized into the following sections:  
+The SQL scripts in [`queries/`](queries/) cover both **data cleaning** and **EDA/insights**.  
+
+### Contents:
 1. **Peak Pickup Hours** – busiest hours and corresponding revenue.  
 2. **Top Pickup & Dropoff Hotspots** – high-demand zones.  
 3. **Impact of Congestion Fee** – revenue comparison between fee and non-fee trips.  
@@ -28,38 +11,73 @@ The SQL script is organized into the following sections:
 6. **Pickup–Dropoff Zone Pairs** – most frequent OD pairs and total fares.  
 7. **Same-Zone Trips** – intra-zone travel metrics.  
 
-> ⚡ Note: Query outputs are **not embedded in the SQL file**.  
-> To showcase results professionally, consider:  
-> - Storing outputs in `/results` as CSV.  
-> - Embedding key summaries in this README as Markdown tables.  
+📂 Files:  
+- `Cleaning_Queries.sql` → Preprocessing and handling nulls  
+- `nyc_green_taxi_analysis.sql` → Insights and exploratory queries  
+- `stored_procedures.sql` → Null counts, borough details  
+
+📝 Query results are compiled in [`results.doc`](results.doc).  
 
 ---
 
 ## 📈 2. Power BI Dashboard
-An interactive **Power BI dashboard** was created to visualize key insights.  
 
-**Filters:**  
+An interactive **Power BI dashboard** was created to visualize insights derived from MySQL analysis.  
+
+**Filters Available:**  
 - Borough  
 - Time of Day  
 - Distance Category  
 
-**Visuals:**  
+**Visuals Include:**  
 - Heatmap of pickup/dropoff hotspots  
 - Revenue by trip distance  
 - Congestion fee impact on revenue  
 - Borough-wise revenue and trip count breakdown  
 
 📷 *Screenshots of the dashboard are attached in the repo.*  
-The `.pbix` file is included in [`dashboards/`](dashboards/).  
+The `.pbix` file is provided in [`dashboards/`](dashboards/).  
 
 ---
 
 ## 📂 Project Structure
 nyc-green-taxi-analysis/
 ┣ queries/
-┃ ┗ nyc_green_taxi_analysis.sql # SQL queries for EDA & insights
+┃ ┣ Cleaning_Queries.sql
+┃ ┣ nyc_green_taxi_analysis.sql
+┃ ┗ stored_procedures.sql
 ┣ dashboards/
-┃ ┗ powerbi_dashboard.pbix # Power BI dashboard
-┣ results/ # (Optional) CSV/MD outputs of queries
-┣ README.md # Project documentation
+┃ ┗ powerbi_dashboard.pbix
+┣ results/
+┃ ┗ results.doc
+┣ README.md
+
+yaml
+Copy
+Edit
+
+---
+
+## 🚀 Key Insights
+- **Peak demand:** Evening hours (4–7 PM).  
+- **Hotspots:** East Harlem dominates pickups and dropoffs.  
+- **Congestion fee:** Despite fewer trips, contributes ~40% of revenue.  
+- **Revenue split:** Short trips generate ~67% of revenue.  
+- **Borough share:** Manhattan leads in trips and total fare.  
+
+---
+
+## 🔗 References
+- NYC TLC Data: [Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)  
+- Green Taxi Data Dictionary: [Download PDF](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf)  
+
+---
+
+## 👩‍💻 Author
+Analysis & Dashboard by *Anusha*  
+give the attachments details in a table
+
+---
+
+
 3. insights of the dashboard attached
