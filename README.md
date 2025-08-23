@@ -36,9 +36,6 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 
 ---
 
-## 📂 Project Structure (give the attachments details in a table)
----
-
 ## 📂 Project Structure
 
 | Folder/File                | Description |
