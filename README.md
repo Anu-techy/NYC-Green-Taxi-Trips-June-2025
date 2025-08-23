@@ -36,7 +36,6 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 - Borough-wise revenue and trip count breakdown  
 
 📷 *Screenshots of the dashboard are attached in the repo.*  
-The `.pbix` file is provided in [`dashboards/`](dashboards/).  
 
 ---
 
@@ -52,11 +51,7 @@ nyc-green-taxi-analysis/
 ┃ ┗ results.doc
 ┣ README.md
 
-yaml
-Copy
-Edit
 
----
 
 ## 🚀 Key Insights
 - **Peak demand:** Evening hours (4–7 PM).  
@@ -64,12 +59,6 @@ Edit
 - **Congestion fee:** Despite fewer trips, contributes ~40% of revenue.  
 - **Revenue split:** Short trips generate ~67% of revenue.  
 - **Borough share:** Manhattan leads in trips and total fare.  
-
----
-
-## 🔗 References
-- NYC TLC Data: [Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)  
-- Green Taxi Data Dictionary: [Download PDF](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf)  
 
 ---
 
