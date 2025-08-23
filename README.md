@@ -27,6 +27,12 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 
 ---
 
+## 📊 Dataset
+- **Source:** [NYC Taxi & Limousine Commission (TLC) Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)  
+- **Dictionary:** [Data Dictionary (Green Taxi)](https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_green.pdf)
+
+---
+
 ## 📂 Project Structure
 
 |         File                | Description |
