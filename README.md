@@ -53,4 +53,9 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 ## 👩‍💻 Author
 Analysis & Dashboard by *Anusha*  
 
+- 💻 GitHub: [Your Profile Link]  
+- 🎥 YouTube: [Your Channel Link]  
+- 🌐 LinkedIn: [Your LinkedIn Profile]  
+
+
 
