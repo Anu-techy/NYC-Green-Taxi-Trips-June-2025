@@ -8,12 +8,7 @@
 6. **Pickup–Dropoff Zone Pairs** – most frequent OD pairs and total fares.  
 7. **Same-Zone Trips** – intra-zone travel metrics.  
 
-📂 Files:  
-- `Cleaning_Queries.sql` → Preprocessing and handling nulls  
-- `nyc_green_taxi_analysis.sql` → Insights and exploratory queries  
-- `stored_procedures.sql` → Null counts, borough details  
-
----
+----
 
 ## 📈 2. Power BI Dashboard
 
@@ -46,8 +41,6 @@ An interactive **Power BI dashboard** was created to visualize insights derived 
 | `README.md`                           | Project documentation |
 
 ---
-
-
 
 ## 🚀 Key Insights
 - **Peak demand:** Evening hours (4–7 PM).  
