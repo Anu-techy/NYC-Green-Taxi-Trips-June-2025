@@ -1,71 +1,51 @@
------------------------------------------------
-                  Peak pickup hours
- ----------------------------------------------
-| pickup_hour |   trips  |   revenue  |
- ----------------------------------------------
+----------------------------------------------
+              1. Peak pickup hours
+----------------------------------------------
+| pickup_hour           | trips  | revenue  |
+----------------------------------------------
 |          17           |  3535  | 88417.86 |
 |          16           |  3380  | 85695.51 |
 |          18           |  3379  | 80552.69 |
 |          15           |  2894  | 66875.01 |
 |          19           |  2733  | 63765.94 |
------------------------------------------------
-
-__________________________________________
-
-                        Top 10 pickup  hotspots
+----------------------------------------------
 
 ---------------------------------------------------------------
-|              Zone                                                | pickups |
+                    2.Top 10 pickup  hotspots
 ---------------------------------------------------------------
-| East Harlem North                                    |   11817 |
-| East Harlem South                                    |    6668  |
-| Central Park                                                |    2249  |
-| Central Harlem                                           |    1905  |
-| Morningside Heights                                |    1888  |
-| Forest Hills                                                   |    1886 |
-| Elmhurst                                                       |    1630 |
-| Fort Greene                                                 |    1578 |
-| Jamaica                                                         |    1421 |
-| Downtown Brooklyn/MetroTech          |    1365 |
+|         Zone                                     | pickups  |
+---------------------------------------------------------------
+| East Harlem North                                |   11817  |
+| East Harlem South                                |    6668  |
+| Central Park                                     |    2249  |
+| Central Harlem                                   |    1905  |
+| Morningside Heights                              |    1888  |
+| Forest Hills                                     |    1886  |
+| Elmhurst                                         |    1630  |
+| Fort Greene                                      |    1578  |
+| Jamaica                                          |    1421  |
+| Downtown Brooklyn/MetroTech                      |     1365 |
 ---------------------------------------------------------------
 
-==================================================
---Top 10 dropoff  hotspots
+---------------------------------------------------------------
+                   3.Top 10 dropoff hotspots
+--------------------------------------------------------------
+|         Zone                                   | dropoffs  |
+---------------------------------------------------------------
+| East Harlem South                              |      2703 |
+| Upper East Side North                          |      2579 |
+| East Harlem North                              |      2176 |
+| Upper West Side North                          |      1871 |
+| Central Harlem                                 |      1509 |
+| LaGuardia Airport                              |      1340 |
+| Yorkville West                                 |      1334 |
+| Central Harlem North                           |      1267 |
+| Morningside Heights                            |      1259 |
+| Upper West Side South                          |      1192 |
+---------------------------------------------------------------
 
-SELECT l.Zone, COUNT(*) AS dropoffs
-FROM green_trips t
-JOIN locations l
-  ON t.DOLocationID = l.LocationID
-GROUP BY l.Zone
-ORDER BY dropoffs DESC
-LIMIT 10;
-
-
-+-----------------------+----------+
-| Zone                  | dropoffs |
-+-----------------------+----------+
-| East Harlem South     |     2703 |
-| Upper East Side North |     2579 |
-| East Harlem North     |     2176 |
-| Upper West Side North |     1871 |
-| Central Harlem        |     1509 |
-| LaGuardia Airport     |     1340 |
-| Yorkville West        |     1334 |
-| Central Harlem North  |     1267 |
-| Morningside Heights   |     1259 |
-| Upper West Side South |     1192 |
-+-----------------------+----------+
-
-========================================
--- Impact of congestion fee
-
-SELECT IF(congestion_fee > 0,'With Fee','No Fee') AS fee_status,
-       COUNT(*) AS trips,
-       ROUND(SUM(fare_amount),2) AS revenue,
-       ROUND(AVG(fare_amount),2) AS avg_revenue
-FROM green_trips
-GROUP BY fee_status;
-
+------------------------------------------------
+          4. Impact of congestion fee
 +------------+-------+-----------+-------------+
 | fee_status | trips | revenue   | avg_revenue |
 +------------+-------+-----------+-------------+
@@ -73,52 +53,15 @@ GROUP BY fee_status;
 | With Fee   | 15083 | 330752.38 |       21.93 |
 +------------+-------+-----------+-------------+
 
-Although fewer in count, fee-applied trips still contribute ~40% of the revenue.
-This could help in pricing optimization or driver allocation: prioritize being available in congestion fee zones.
-=============================================
-
-
-
-
-
-=================================================
-Business Insights Queries
-========================================
---Revenue Segmentation (Short / Medium / Long)
-
-SELECT 
-   CASE 
-      WHEN trip_distance <= 5 THEN 'Short'
-      WHEN trip_distance <= 20 THEN 'Medium'
-      ELSE 'Long'
-   END AS distance_band,
-   COUNT(*) AS num_trips,
-   SUM(total_amount) AS total_revenue,
-   ROUND(SUM(total_amount) * 100.0 / (SELECT SUM(total_amount) FROM green_trips), 2) AS revenue_pct
-FROM green_trips
-GROUP BY distance_band;
-
- distance_band | num_trips | total_revenue | revenue_pct |
+-----------------------------------------------------------
+      5. Revenue Segmentation (Short / Medium / Long)
+-----------------------------------------------------------
+| distance_band | num_trips | total_revenue | revenue_pct |
 +---------------+-----------+---------------+-------------+
 | Medium        |      6581 |     351545.34 |       31.83 |
 | Short         |     37151 |     736633.72 |       66.70 |
 | Long          |       141 |      16198.27 |        1.47 |
 +---------------+-----------+---------------+-------------+
-
-===========================================================================
-
-SELECT 
-        -- Number of trips
-    SUM(CASE WHEN distance_category = 'Short'  THEN 1 ELSE 0 END)  AS short_trips,
-    SUM(CASE WHEN distance_category = 'Medium' THEN 1 ELSE 0 END)  AS medium_trips,
-    SUM(CASE WHEN distance_category = 'Long'   THEN 1 ELSE 0 END)  AS long_trips,
-
-    -- Total revenue
-    ROUND(SUM(CASE WHEN distance_category = 'Short'  THEN fare_amount ELSE 0 END),2)  AS short_revenue,
-    ROUND(SUM(CASE WHEN distance_category = 'Medium' THEN fare_amount ELSE 0 END),2) AS medium_revenue,
-    ROUND(SUM(CASE WHEN distance_category = 'Long'   THEN fare_amount ELSE 0 END),2)   AS long_revenue
-
-FROM green_trips;
 
 +-------------+--------------+------------+---------------+----------------+--------------+
 | short_trips | medium_trips | long_trips | short_revenue | medium_revenue | long_revenue |
@@ -126,17 +69,8 @@ FROM green_trips;
 |       30571 |         8652 |       4650 |     377282.92 |      213517.81 |    228066.39 |
 +-------------+--------------+------------+---------------+----------------+--------------+
 
-====================================================================================================
-
-SELECT l.Borough,
-       COUNT(*) AS total_trips,
-       SUM(fare_amount) AS total_fare,
-       SUM(CASE WHEN t.congestion_fee > 0 THEN 1 ELSE 0 END) AS congestion_trips
-      FROM green_trips t
-JOIN locations l ON t.PULocationID = l.LocationID
-GROUP BY l.Borough
-ORDER BY total_trips DESC;
-
+---------------------------------------------------------------
+                  6. Borough Trips Analysis
 +---------------+-------------+------------+------------------+
 | Borough       | total_trips | total_fare | congestion_trips |
 +---------------+-------------+------------+------------------+
@@ -147,22 +81,8 @@ ORDER BY total_trips DESC;
 | Staten Island |           2 |      57.70 |                0 |
 +---------------+-------------+------------+------------------+
 
-================================================
-
-Top 10 pickup-dropoff zone pairs with trip count and fare
-
-SELECT 
-    lp.Zone AS pickup_zone,
-    ld.Zone AS dropoff_zone,
-    COUNT(*) AS trip_count,
-    SUM(t.fare_amount) AS total_fare
-FROM green_trips t
-JOIN locations lp ON t.PULocationID = lp.LocationID
-JOIN locations ld ON t.DOLocationID = ld.LocationID
-GROUP BY lp.Zone, ld.Zone
-ORDER BY trip_count DESC   -- or total_fare DESC
-LIMIT 10;
-
+----------------------------------------------------------------------
+       7. Top 10 pickup-dropoff zone pairs with trip count and fare
 +-------------------+-----------------------+------------+------------+
 | pickup_zone       | dropoff_zone          | trip_count | total_fare |
 +-------------------+-----------------------+------------+------------+
@@ -178,24 +98,8 @@ LIMIT 10;
 | Forest Hills      | Forest Hills          |        513 |    5180.90 |
 +-------------------+-----------------------+------------+------------+
 
-================================================================
-
-SELECT Borough, Zone, trip_count, total_fare
-FROM (
-    SELECT l.Borough, l.Zone,
-           COUNT(*) AS trip_count,
-           SUM(t.fare_amount) AS total_fare,
-           ROW_NUMBER() OVER (
-               PARTITION BY l.Borough 
-               ORDER BY COUNT(*) DESC
-           ) AS rn
-    FROM green_trips t
-    JOIN locations l ON t.PULocationID = l.LocationID
-    GROUP BY l.Borough, l.Zone
-) ranked
-WHERE rn <= 3
-ORDER BY trip_count DESC;   -- or ORDER BY total_fare DESC
-
+-------------------------------------------------------------------------
+                    8. Top 3 Earning in Boroughs
 +---------------+-----------------------------+------------+------------+
 | Borough       | Zone                        | trip_count | total_fare |
 +---------------+-----------------------------+------------+------------+
@@ -214,24 +118,9 @@ ORDER BY trip_count DESC;   -- or ORDER BY total_fare DESC
 | Staten Island | Mariners Harbor             |          1 |      40.00 |
 | Staten Island | Saint George/New Brighton   |          1 |      17.70 |
 +---------------+-----------------------------+------------+------------+
-====================================================
 
--- same zone trips metrics
-
-SELECT 
-    l.Zone AS pickup_zone,
-    lc.Zone AS dropoff_zone,
-    COUNT(*) AS trip_count,
-    SUM(t.fare_amount) AS total_fare,
-    ROUND(AVG(t.fare_amount), 2) AS avg_fare_per_trip
-FROM green_trips t
-JOIN locations l  ON t.PULocationID = l.LocationID
-JOIN locations lc ON t.DOLocationID = lc.LocationID
-WHERE t.PULocationID = t.DOLocationID
-GROUP BY l.Zone, lc.Zone
-ORDER BY total_fare DESC
-LIMIT 5;
-
+---------------------------------------------------------------------------------------
+                            9. Intra-zone travel metrics.
 +-------------------+-------------------+------------+------------+-------------------+
 | pickup_zone       | dropoff_zone      | trip_count | total_fare | avg_fare_per_trip |
 +-------------------+-------------------+------------+------------+-------------------+
@@ -241,6 +130,7 @@ LIMIT 5;
 | Coney Island      | Coney Island      |         46 |    2263.00 |             49.20 |
 | Elmhurst          | Elmhurst          |        143 |    1964.70 |             13.74 |
 +-------------------+-------------------+------------+------------+-------------------+
+
 
 
 
